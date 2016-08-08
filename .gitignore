@@ -96,7 +96,5 @@ ENV/
 eyeballsurvey/__pycache__/
 survey/__pycache__/
 survey/migrations/__pycache__/
-templates/
 .idea/inspectionProfiles/
-survey/migrations/0001_initial.py
 .idea

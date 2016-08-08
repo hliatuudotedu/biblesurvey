@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    Display the survey
+{% endblock %}
+
+{% block content %}
+    <form action="" method="post">
+
+        <div>
+            <input type="hidden" value=
+                    "{{ csrf_token }}"
+                   name="csrfmiddlewaretoken">
+        </div>
+        {% for item in questions %}
+            <p>
+                {{ item.question_text }}<br/>
+                {% for c in item.its_own_choices %}
+                    <input type="radio" name="Question{{ item.id }}"
+                           value="Choice{{ c.id }}">
+                    {{ c.choice_text }}<br>
+                {% endfor %}
+            </p>
+
+        {% endfor %}
+
+        <input type="submit" value="Submit the form"/>
+    </form>
+{% endblock %}
