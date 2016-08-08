@@ -19,8 +19,12 @@ from django.conf.urls import (
 
 from django.contrib import admin
 
+from survey.views import (
+    one_survey)
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url(r'^survey/', include('survey.urls')),
-]
+    # ex: /provider/MingWang/survey1/
+    url(r'^provider/(?P<provider_name>[a-zA-Z]+[a-zA-Z0-9]*)/(?P<survey_name>[a-zA-Z]+[a-zA-Z0-9]*)/$',
+        one_survey, name='one_survey'),]
