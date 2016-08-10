@@ -7,7 +7,7 @@
 
 {% block content %}
     <form action=
-        "{%  url 'survey_processing' provider_name=provider_name survey_name=survey_name  %}"
+                  "{% url 'survey_processing' provider_name=provider_name survey_name=survey_name %}"
           method="post">
 
         <div>
@@ -15,24 +15,25 @@
                     "{{ csrf_token }}"
                    name="csrfmiddlewaretoken">
         </div>
-      <label for="patient_name">Patient Name</label>
+        <label for="patient_name">Patient Name</label>
         <input type="text" placeholder=
                 "Patient Name is required"
-            name="patient_name" maxlength="100"
-            id="patient_name" required="required">
-      <label for="patient_name2">*</label>
+               name="patient_name" maxlength="100"
+               id="patient_name" required="required">
+        <label for="patient_name2">*</label>
 
         {% for item in questions %}
-            <p class="">
+            <h2>
                 {{ item.sequence_num }}&nbsp;
                 {{ item.question_text }}<br/>
+            </h2>
                 {% for c in item.its_own_choices %}
-                    <input type="radio" name="__question_num{{ item.id }}"
-                           value="{{ c.id }}">
-                    {{ c.choice_text }}<br>
+                    <h3>
+                        <input type="radio" name="__question_num{{ item.id }}"
+                               value="{{ c.id }}">
+                        {{ c.choice_text }}<br>
+                    </h3>
                 {% endfor %}
-            </p>
-
         {% endfor %}
 
         <input type="submit" value="Submit the form"/>

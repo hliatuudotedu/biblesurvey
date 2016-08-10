@@ -62,7 +62,6 @@ def survey_processing(request, provider_name, survey_name):
         form = SurveyForm(request.POST)
         choice_ids_list = list()
 
-
         patient_name = request.POST['patient_name']
 
         for key, value in form.data.items():
