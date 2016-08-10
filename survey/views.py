@@ -12,9 +12,13 @@ def index(request):
     return HttpResponse("Hello, world. Index Page")
 
 
-def get_questions(provider_name, survey_name):
-    # We will use provider_name and survey_name in the future
+def main_function(request):
+    return render(request, 'survey/main.html',
+                  {})
 
+
+def get_questions(provider_name, survey_name):
+    # TODO: will use provider_name and survey_name soon.
     questions = Question.objects.all().order_by('?')
     sequence_num = 1
     for q in questions:
@@ -34,7 +38,7 @@ def one_survey(request, provider_name, survey_name):
                   {'questions': questions})
 
 
-def store_in_db():
+def store_in_db(choice_ids_list):
     pass
 
 
@@ -50,16 +54,33 @@ def survey_processing(request, provider_name, survey_name):
         questions = get_questions(provider_name, survey_name)
         return render(request, 'survey/survey_display.html',
                       {'questions': questions,
-                       'form': form})
+                       'form': form,
+                       'provider_name': provider_name,
+                       'survey_name': survey_name})
 
     elif request.method == "POST":
         form = SurveyForm(request.POST)
-        all_choice_ids = ""
+        choice_ids_list = list()
+
+        patient_name = request.POST['patient_name']
+
         for key, value in form.data.items():
             if key.startswith('__question_num'):
-                all_choice_ids += ' ' + value
-                store_in_db()
-                display_using_render()
-        print(all_choice_ids)
+                choice_ids_list.append(int(value))
+
+        object_list = Choice.objects.filter(
+            id__in=choice_ids_list)
+        store_in_db(choice_ids_list)
+
+        my_own_points = 0.00
+        for obj in object_list:
+            my_own_points += float(obj.point_value)
+            a_question_id = obj.question_id
+            obj.the_question_text = Question.objects.get(
+                id=a_question_id).question_text
+        return render(request, 'survey/survey_2_provider.html',
+                      {'object_list': object_list,
+                       'patient_name': patient_name,
+                       'my_own_points': my_own_points})
     else:
         pass

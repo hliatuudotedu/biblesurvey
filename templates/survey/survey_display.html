@@ -6,16 +6,21 @@
 {% endblock %}
 
 {% block content %}
-    <form action="" method="post">
+    <form action=
+        "{%  url 'survey_processing' provider_name=provider_name survey_name=survey_name  %}"
+          method="post">
 
         <div>
             <input type="hidden" value=
                     "{{ csrf_token }}"
                    name="csrfmiddlewaretoken">
         </div>
-        <input type="text" placeholder="Please Enter Your Name"
-            name="{{ form.patient_name }}"
-            id="{{ form.patient_name }}">
+      <label for="patient_name">Patient Name</label>
+        <input type="text" placeholder=
+                "Patient Name is required"
+            name="patient_name" maxlength="100"
+            id="patient_name" required="required">
+      <label for="patient_name2">*</label>
 
         {% for item in questions %}
             <p class="">
