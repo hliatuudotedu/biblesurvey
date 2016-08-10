@@ -25,6 +25,6 @@ from survey.views import (
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    # ex: /provider/MingWang/survey1/
+    # ex: /provider/mingwang/survey1/
     url(r'^provider/(?P<provider_name>[a-zA-Z]+[a-zA-Z0-9]*)/(?P<survey_name>[a-zA-Z]+[a-zA-Z0-9]*)/$',
         one_survey, name='one_survey'),]

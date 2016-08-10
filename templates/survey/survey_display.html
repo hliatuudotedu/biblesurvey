@@ -13,12 +13,17 @@
                     "{{ csrf_token }}"
                    name="csrfmiddlewaretoken">
         </div>
+        <input type="text" placeholder="Please Enter Your Name"
+            name="{{ form.patient_name }}"
+            id="{{ form.patient_name }}">
+
         {% for item in questions %}
-            <p>
+            <p class="">
+                {{ item.sequence_num }}&nbsp;
                 {{ item.question_text }}<br/>
                 {% for c in item.its_own_choices %}
-                    <input type="radio" name="Question{{ item.id }}"
-                           value="Choice{{ c.id }}">
+                    <input type="radio" name="__question_num{{ item.id }}"
+                           value="{{ c.id }}">
                     {{ c.choice_text }}<br>
                 {% endfor %}
             </p>
