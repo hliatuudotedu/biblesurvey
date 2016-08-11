@@ -23,16 +23,16 @@
         <label for="patient_name2">*</label>
 
         {% for item in questions %}
-            <h2>
+            <h3>
                 {{ item.sequence_num }}&nbsp;
                 {{ item.question_text }}<br/>
-            </h2>
+            </h3>
                 {% for c in item.its_own_choices %}
-                    <h3>
+                    <h4>
                         <input type="radio" name="__question_num{{ item.id }}"
                                value="{{ c.id }}">
                         {{ c.choice_text }}<br>
-                    </h3>
+                    </h4>
                 {% endfor %}
         {% endfor %}
 
