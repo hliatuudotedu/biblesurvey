@@ -65,7 +65,7 @@ def survey_processing(request, provider_name, survey_name):
         patient_name = request.POST['patient_name']
 
         for key, value in form.data.items():
-            if key.startswith('__question_num'):
+            if key.startswith('__QuestionNum__'):
                 choice_ids_list.append(int(value))
 
         object_list = Choice.objects.filter(

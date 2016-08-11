@@ -29,8 +29,10 @@
             </h3>
                 {% for c in item.its_own_choices %}
                     <h4>
-                        <input type="radio" name="__question_num{{ item.id }}"
-                               value="{{ c.id }}">
+                        <input type="radio"
+                               name="__QuestionNum__{{ item.id }}"
+                               value="{{ c.id }}"
+                               required = "required">
                         {{ c.choice_text }}<br>
                     </h4>
                 {% endfor %}
