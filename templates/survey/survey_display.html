@@ -16,10 +16,13 @@
                    name="csrfmiddlewaretoken">
         </div>
         <label for="patient_name">Patient Name</label>
-        <input type="text" placeholder=
-                "Patient Name is required"
-               name="patient_name" maxlength="100"
-               id="patient_name" required="required">
+        <input type="text"
+               placeholder="Patient Name is required"
+               name="patient_name"
+               maxlength="100"
+               id="patient_name"
+               required="required">
+
         <label for="patient_name2">*</label>
 
         {% for item in questions %}
@@ -38,6 +41,8 @@
                 {% endfor %}
         {% endfor %}
 
-        <input type="submit" value="Submit the form"/>
+        <input class = "btn btn-primary text-center"
+               type="submit"
+               value="Submit the form"/>
     </form>
 {% endblock %}
