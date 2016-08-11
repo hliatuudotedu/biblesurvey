@@ -132,6 +132,12 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = \
+    'whitenoise.django.GzipManifestStaticFilesStorage'
+
 
 # unique to Heroku database connection to PostgresQL
 import dj_database_url
