@@ -131,3 +131,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+
+# unique to Heroku database connection to PostgresQL
+import dj_database_url
+DATABASES['default'] = dj_database_url.config()
