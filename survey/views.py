@@ -2,11 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from .models import (
-    Question, Choice)
+    Question,
+    Choice,
+    SurveyQuestion,
+    Survey,
+    Provider)
 
 from .forms import (
     SurveyForm,
     ImportQuestionsChoicesForm)
+
+from django.utils import timezone
 
 
 def index(request):
@@ -27,6 +33,11 @@ def import_questions_choices(request):
     elif request.method == "POST":
         form = ImportQuestionsChoicesForm(request.POST)
         if form.is_valid():
+
+            # delete all Questions and Choices
+            Question.objects.all().delete()
+            Choice.objects.all().delete()
+
             result = form.cleaned_data["all_info"]
             lines = result.splitlines()
             print(len(lines))
@@ -37,38 +48,48 @@ def import_questions_choices(request):
             print(len(lines))
 
             error_flag = False
-            error_message = "Nothing"
+            error_message = ""
 
             counter1 = 0
-            has_a_new_question = False
             a_question = None
+            specified_category_id = 1
             for line1 in lines:
-                if line1.startswith("Q"):
-                    has_a_new_question = True
+                print(line1)
+                if line1.startswith("Question"):
                     # Remove the first word at the beginning
+                    no_1st_word = line1.split(None, 1)[1]
 
                     a_question = Question(
-                        question_text=line1,
-                        pub_date='2015-11-11',
-                        category_id=1)
-                    # it must be a question:
-                    pass
-                elif line1.startswith("C"):
+                        question_text=no_1st_word,
+                        pub_date=timezone.now(),
+                        category_id=specified_category_id)
+                    a_question.save()
+
+                elif line1.startswith("Choice"):
                     # it must be a choice. Need to
                     # attach the choice to the previous
                     # question
-                    choice_text = line1
-                    value = float(line1)
+
+                    no_1st_word = line1.split(None, 1)[1]
+
+                    value_part_only = no_1st_word.split(None, 1)[0]
+
+                    pure_text_only = no_1st_word.split(None, 1)[1]
+
+                    value = float(value_part_only)
                     a_choice = Choice(
-                        choice_text=choice_text,
+                        choice_text=pure_text_only,
                         point_value=value,
                         question_id=a_question.id)
+                    a_choice.save()
+                elif line1.strip() == "":
                     pass
                 else:
                     error_flag = True
                     error_message = \
                         "Unrecognized line[#" + \
-                        str(int(counter1) + 1) + "]: " + line1
+                        str(int(counter1) + 1) + "]:" + \
+                        line1 + "***"
 
                     break
                 counter1 += 1
@@ -86,9 +107,18 @@ def import_questions_choices(request):
         pass
 
 
-def get_questions(provider_name, survey_name):
-    # TODO: will use provider_name and survey_name soon.
-    questions = Question.objects.all().order_by('?')
+def get_questions(survey_name):
+    sid = Survey.objects.get(name=survey_name)
+    query_results = SurveyQuestion.objects.filter(
+        survey_id=sid)
+
+    question_ids = list()
+    for result in query_results:
+        question_ids.append(result.question_id)
+
+    questions = Question.objects.filter(
+        id__in=question_ids).order_by('?')
+
     sequence_num = 1
     for q in questions:
         q.sequence_num = sequence_num
@@ -102,7 +132,7 @@ def one_survey(request, provider_name, survey_name):
     print(provider_name)
     print(survey_name)
 
-    questions = get_questions(provider_name, survey_name)
+    questions = get_questions(survey_name)
     return render(request, 'survey/survey_display.html',
                   {'questions': questions})
 
@@ -119,8 +149,21 @@ def display_using_render():
 
 def survey_processing(request, provider_name, survey_name):
     if request.method == "GET":
+
+        a_provider = Provider.objects.filter(name=provider_name)
+        if a_provider.count() == 0:
+            return HttpResponse(
+                "Provider name " +
+                provider_name + " is not found!")
+
+        a_survey = Survey.objects.filter(name=survey_name)
+        if a_survey.count() == 0:
+            return HttpResponse(
+                "Survey name " +
+                survey_name + " not found!")
+
         form = SurveyForm()
-        questions = get_questions(provider_name, survey_name)
+        questions = get_questions(survey_name)
         return render(request, 'survey/survey_display.html',
                       {'questions': questions,
                        'form': form,

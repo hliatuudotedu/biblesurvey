@@ -6,9 +6,10 @@
     <div class="h2">Import Questions and their Choices</div>
 
     <div class="h3">Note: The input must be int the following
-    format: one line for Question. It must start with uppercase letter
-        Q. The following multiple lines are for Choices. It must start
-        with a number for the point value.</div>
+    format: one line for Question. It must start with "Question".
+        The following multiple lines are for Choices. It must start
+        with "Choice". Then it must be a number for the point value.
+        The last part is the actual choice text</div>
 
     <form method="POST" action=
             "{% url "import" %}">

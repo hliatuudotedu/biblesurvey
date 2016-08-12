@@ -1,6 +1,34 @@
 from django.db import models
 
 
+class Provider(models.Model):
+    name = models.CharField(max_length=400,
+                            blank=False,
+                            null=False)
+    full_name = models.CharField(max_length=400)
+    organization = models.CharField(max_length=400)
+    datetime_joined = models.DateTimeField(
+        null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Survey(models.Model):
+    provider = models.ForeignKey(
+        Provider,
+        on_delete=models.CASCADE)
+    name = models.CharField(max_length=400,
+                            blank=False,
+                            null=False)
+    purpose = models.CharField(max_length=400)
+    datetime_created = models.DateTimeField(
+        null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Category(models.Model):
     name = models.CharField(max_length=400)
     purpose = models.CharField(max_length=400)
@@ -36,4 +64,12 @@ class Choice(models.Model):
         return self.choice_text
 
 
+class SurveyQuestion (models.Model):
 
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    datetime_created = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return 'SurveyQuestion: created on [' +\
+               self.datetime_created.__str__() + ']'
