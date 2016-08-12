@@ -6,3 +6,11 @@ class SurveyForm(forms.Form):
         required=True,
         max_length=255,
         min_length=1)
+
+
+class ImportQuestionsChoicesForm(forms.Form):
+    all_info = forms.CharField(
+        required=True, widget=forms.Textarea(
+            attrs={'rows': 10, 'cols': 80}))
+
+

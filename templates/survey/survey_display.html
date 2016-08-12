@@ -26,18 +26,18 @@
         <label for="patient_name2">*</label>
 
         {% for item in questions %}
-            <h3>
+            <div class="h2">
                 {{ item.sequence_num }}&nbsp;
                 {{ item.question_text }}<br/>
-            </h3>
+            </div>
                 {% for c in item.its_own_choices %}
-                    <h4>
+                    <div class="h4">
                         <input type="radio"
                                name="__QuestionNum__{{ item.id }}"
                                value="{{ c.id }}"
                                required = "required">
                         {{ c.choice_text }}<br>
-                    </h4>
+                    </div>
                 {% endfor %}
         {% endfor %}
 

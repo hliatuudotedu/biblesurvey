@@ -21,10 +21,15 @@ from django.contrib import admin
 
 from survey.views import (
     main_function,
-    survey_processing)
+    survey_processing,
+    import_questions_choices)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
+    url(r'^import$',
+        import_questions_choices,
+        name="import"),
 
     url(r'^$', main_function, name="main"),
 

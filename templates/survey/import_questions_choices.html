@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block head_title %}Import Questions and their Choices
+{% endblock %}
+
+{% block content %}
+    <div class="h2">Import Questions and their Choices</div>
+
+    <div class="h3">Note: The input must be int the following
+    format: one line for Question. It must start with uppercase letter
+        Q. The following multiple lines are for Choices. It must start
+        with a number for the point value.</div>
+
+    <form method="POST" action=
+            "{% url "import" %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="action">Import Them All</button>
+    </form>
+{% endblock %}
