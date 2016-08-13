@@ -30,7 +30,9 @@ class Survey(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=400)
+    name = models.CharField(max_length=400,
+                            blank=False,
+                            null=False)
     purpose = models.CharField(max_length=400)
     owner = models.CharField(max_length=400)
 
@@ -42,7 +44,9 @@ class Question(models.Model):
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE)
-    question_text = models.CharField(max_length=400)
+    question_text = models.CharField(max_length=400,
+                                     null=False,
+                                     blank=False)
     pub_date = models.DateTimeField(
         verbose_name='date published')
 
@@ -54,7 +58,9 @@ class Choice(models.Model):
     question = models.ForeignKey(
         Question,
         on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=400)
+    choice_text = models.CharField(max_length=400,
+                                   null=False,
+                                   blank=False)
     point_value = models.DecimalField(
         verbose_name='point value',
         max_digits=4,
@@ -73,3 +79,7 @@ class SurveyQuestion (models.Model):
     def __str__(self):
         return 'SurveyQuestion: created on [' +\
                self.datetime_created.__str__() + ']'
+
+
+class Dummy(models.Model):
+    dummy = models.CharField(max_length=100)
