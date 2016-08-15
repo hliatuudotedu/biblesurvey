@@ -5,6 +5,24 @@
     <link href="{% static 'bootstrap3.3.6/css/bootstrap.min.css' %}"
           rel="stylesheet" media="screen">
 
+    <script src="{% static 'bootstrap3.3.6/js/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'bootstrap3.3.6/js/bootstrap.min.js' %}"></script>
+
+    <script language="JavaScript">
+        $(document).ready(function() {
+            $('#incfont').click(function(){
+            curSize= parseInt($('#content').css('font-size')) + 2;
+            if(curSize<=38)
+            $('#content').css('font-size', curSize);
+            });
+            $('#decfont').click(function(){
+            curSize= parseInt($('#content').css('font-size')) - 2;
+            if(curSize>=10)
+            $('#content').css('font-size', curSize);
+            });
+        });
+    </script>
+
   </head>
 
 <body>
@@ -40,8 +58,7 @@
         </div>
     </div>
 
-    <script src="{% static 'bootstrap3.3.6/js/jquery-2.2.4.min.js' %}"></script>
-    <script src="{% static 'bootstrap3.3.6/js/bootstrap.min.js' %}"></script>
+
 
 
 

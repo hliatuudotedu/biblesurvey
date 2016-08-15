@@ -1,48 +1,54 @@
 {% extends "base.html" %}
 
-
 {% block title %}
     Display the survey
 {% endblock %}
 
 {% block content %}
+
+    		<div id="">
+		<a href="#" id="incfont" class="btn btn-primary">A+ Click to increase</a>
+		<a href="#" id="decfont" class="btn btn-success">A- Click to decrease</a>
+		</div>
     <form action=
                   "{% url 'survey_processing' provider_name=provider_name survey_name=survey_name %}"
           method="post">
 
-        <div>
+        <div id="content">
             <input type="hidden" value=
                     "{{ csrf_token }}"
                    name="csrfmiddlewaretoken">
-        </div>
-        <label for="patient_name">Patient Name</label>
-        <input type="text"
-               placeholder="Patient Name is required"
-               name="patient_name"
-               maxlength="100"
-               id="patient_name"
-               required="required">
+            <label for="patient_name">Patient Name</label>
+            <input type="text"
+                   placeholder="Patient Name is required"
+                   name="patient_name"
+                   maxlength="100"
+                   id="patient_name"
+                   required="required">
 
-        <label for="patient_name2">*</label>
+            <label for="patient_name2">*</label>
+            <br/>
 
-        {% for item in questions %}
-            <div class="h2">
+            {% for item in questions %}
+
                 {{ item.sequence_num }}&nbsp;
                 {{ item.question_text }}<br/>
-            </div>
-                {% for c in item.its_own_choices %}
-                    <div class="h4">
-                        <input type="radio"
-                               name="__QuestionNum__{{ item.id }}"
-                               value="{{ c.id }}"
-                               required = "required">
-                        {{ c.choice_text }}<br>
-                    </div>
-                {% endfor %}
-        {% endfor %}
 
-        <input class = "btn btn-primary text-center"
-               type="submit"
-               value="Submit the form"/>
+                {% for c in item.its_own_choices %}
+                    <input type="radio"
+                           name="__QuestionNum__{{ item.id }}"
+                           value="{{ c.id }}"
+                           required="required">
+                    {{ c.choice_text }}<br>
+                {% endfor %}
+
+            {% endfor %}
+
+            <input class="btn btn-primary text-center"
+                   type="submit"
+                   value="Submit the form"/>
+
+        </div>
+
     </form>
 {% endblock %}

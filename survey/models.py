@@ -77,9 +77,8 @@ class SurveyQuestion (models.Model):
     datetime_created = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return 'SurveyQuestion: created on [' +\
-               self.datetime_created.__str__() + ']'
+        return 'SurveyQuestion: survey_id: [' +\
+            str(self.survey_id) + ']' +\
+            'question_id: [' +\
+            str(self.question_id) + ']'
 
-
-class Dummy(models.Model):
-    dummy = models.CharField(max_length=100)
