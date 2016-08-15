@@ -5,16 +5,16 @@
 {% endblock %}
 
 {% block content %}
+    <div id="content">
 
-    		<div id="">
-		<a href="#" id="incfont" class="btn btn-primary">A+ Click to increase</a>
-		<a href="#" id="decfont" class="btn btn-success">A- Click to decrease</a>
-		</div>
-    <form action=
-                  "{% url 'survey_processing' provider_name=provider_name survey_name=survey_name %}"
-          method="post">
+        <p id="">
+            <a href="#" id="incfont" class="btn btn-primary">A+ Click to increase</a>
+            <a href="#" id="decfont" class="btn btn-success">A- Click to decrease</a>
+        </p>
+        <form action=
+                      "{% url 'survey_processing' provider_name=provider_name survey_name=survey_name %}"
+              method="post">
 
-        <div id="content">
             <input type="hidden" value=
                     "{{ csrf_token }}"
                    name="csrfmiddlewaretoken">
@@ -44,11 +44,13 @@
 
             {% endfor %}
 
-            <input class="btn btn-primary text-center"
+            <p>
+            <input class="btn btn-primary btn-lg text-center"
                    type="submit"
-                   value="Submit the form"/>
+                   value="Submit my answers!"/>
+            </p>
 
-        </div>
+        </form>
+    </div>
 
-    </form>
 {% endblock %}
