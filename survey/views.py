@@ -14,6 +14,11 @@ from .forms import (
 
 from django.utils import timezone
 
+from django.db.models import (
+    Max,
+    Min,
+    Avg)
+
 
 def index(request):
     return HttpResponse("Hello, world. Index Page")
@@ -173,6 +178,7 @@ def survey_processing(request, provider_name, survey_name):
     elif request.method == "POST":
         form = SurveyForm(request.POST)
         choice_ids_list = list()
+        question_ids_list = list()
 
         patient_name = request.POST['patient_name']
 
@@ -182,17 +188,38 @@ def survey_processing(request, provider_name, survey_name):
 
         object_list = Choice.objects.filter(
             id__in=choice_ids_list)
+
         store_in_db(choice_ids_list)
 
         my_own_points = 0.00
         for obj in object_list:
             my_own_points += float(obj.point_value)
             a_question_id = obj.question_id
+            question_ids_list.append(a_question_id)
             obj.the_question_text = Question.objects.get(
                 id=a_question_id).question_text
+        #  Need to get rid of duplicates
+        #  within question_ids_list
+        no_duplicates = list(set(question_ids_list))
+
+        all_max = 0.00
+        all_min = 0.00
+
+        for q_id in no_duplicates:
+            single_max = Choice.objects.filter(
+            question_id=q_id).aggregate(Max('point_value'))
+            all_max += float(single_max.get('point_value__max'))
+
+            single_min = Choice.objects.filter(
+            question_id=q_id).aggregate(Min('point_value'))
+            all_min += float(single_min.get('point_value__min'))
+
+
         return render(request, 'survey/survey_2_provider.html',
                       {'object_list': object_list,
                        'patient_name': patient_name,
-                       'my_own_points': my_own_points})
+                       'my_own_points': my_own_points,
+                       'all_max':all_max,
+                       'all_min':all_min})
     else:
         pass
