@@ -5,6 +5,7 @@ from .models import (
     Question,
     Choice,
     SurveyQuestion,
+    SurveyResult,
     Survey,
     Provider)
 
@@ -142,8 +143,12 @@ def one_survey(request, provider_name, survey_name):
                   {'questions': questions})
 
 
-def store_in_db(choice_ids_list):
-    pass
+def store_in_db(patient_name, choice_ids_list):
+    a_survey = SurveyResult(
+        patient_name=patient_name,
+        choice_ids=choice_ids_list)
+    a_survey.save()
+    print(a_survey)
 
 
 def display_using_render():
@@ -189,7 +194,7 @@ def survey_processing(request, provider_name, survey_name):
         object_list = Choice.objects.filter(
             id__in=choice_ids_list)
 
-        store_in_db(choice_ids_list)
+        store_in_db(patient_name, choice_ids_list)
 
         my_own_points = 0.00
         for obj in object_list:
@@ -214,12 +219,9 @@ def survey_processing(request, provider_name, survey_name):
             question_id=q_id).aggregate(Min('point_value'))
             all_min += float(single_min.get('point_value__min'))
 
-
         return render(request, 'survey/survey_2_provider.html',
                       {'object_list': object_list,
                        'patient_name': patient_name,
                        'my_own_points': my_own_points,
                        'all_max':all_max,
                        'all_min':all_min})
-    else:
-        pass

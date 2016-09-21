@@ -1,5 +1,5 @@
 from django.db import models
-
+import uuid
 
 class Provider(models.Model):
     name = models.CharField(max_length=400,
@@ -82,3 +82,14 @@ class SurveyQuestion (models.Model):
             'question_id: [' +\
             str(self.question_id) + ']'
 
+
+class SurveyResult (models.Model):
+
+    patient_name = models.CharField(max_length=100)
+    datetime_created = models.DateTimeField(auto_now=True)
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    choice_ids = models.CharField(max_length=400)
+
+    def __str__(self):
+        return 'SurveyResult: uuid: [' +\
+            str(self.uuid) + ']'
