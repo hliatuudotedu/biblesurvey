@@ -25,7 +25,7 @@ SECRET_KEY = '78&)3&$5zed=-2e35e*5*orhpx@9+we2@l_m3-@-98dg786g8i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['biblesurvey.herokuapp.com']
 
 
 # Application definition
@@ -50,12 +50,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'eyeballsurvey.urls'
+ROOT_URLCONF = 'biblesurvey.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, '../templates')]
+        'DIRS': [os.path.join(BASE_DIR, '../biblesurvey/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'eyeballsurvey.wsgi.application'
+WSGI_APPLICATION = 'biblesurvey.wsgi.application'
 
 
 # Database
@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'eyeballsurvey.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'EyeballSurvey',
+        'NAME': 'Bible Survey',
         'USER': 'postgres',
-        'PASSWORD': 'chartergh',
+        'PASSWORD': 'postgresdb1',
         'HOST': '',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
@@ -120,20 +120,13 @@ USE_L10N = True
 USE_TZ = True
 
 
-# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, '../static'),
-)
-
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-
-STATICFILES_STORAGE = \
-    'whitenoise.django.GzipManifestStaticFilesStorage'
+# unique to Heroku database connection to PostgresQL
+import dj_database_url
+DATABASES['default'] = dj_database_url.config()

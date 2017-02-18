@@ -1,1 +1,1 @@
-web: gunicorn eyeballsurvey.wsgi --log-file -
+web: gunicorn biblesurvey.wsgi --log-file -

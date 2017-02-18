@@ -93,7 +93,7 @@ ENV/
 .gitignore
 .idea/vcs.xml
 .idea/workspace.xml
-eyeballsurvey/__pycache__/
+biblesurvey/__pycache__/
 survey/__pycache__/
 survey/migrations/__pycache__/
 .idea/inspectionProfiles/
