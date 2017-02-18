@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'biblesurvey.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Bible Survey',
-        'USER': 'postgres',
-        'PASSWORD': 'postgresdb1',
-        'HOST': '',
+        'NAME': 'dfl25tenu1iic',
+        'USER': 'dunqiigxromzpd',
+        'PASSWORD': '9ac87f8e2ca0ba42c625cdc0dc515d8f7e78114aa549e5e70708a4d0ab40b993',
+        'HOST': 'ec2-107-20-191-76.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
