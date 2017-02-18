@@ -126,7 +126,3 @@ USE_TZ = True
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-
-# unique to Heroku database connection to PostgresQL
-import dj_database_url
-DATABASES['default'] = dj_database_url.config()
