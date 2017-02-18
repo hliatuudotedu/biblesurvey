@@ -1,24 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
-from .models import (
-    Question,
-    Choice,
-    SurveyQuestion,
-    SurveyResult,
-    Survey,
-    Provider)
-
-from .forms import (
-    SurveyForm,
-    ImportQuestionsChoicesForm)
-
+from .models import Question, Choice, SurveyQuestion, SurveyResult, Survey, Provider
+from .forms import SurveyForm, ImportQuestionsChoicesForm
 from django.utils import timezone
-
-from django.db.models import (
-    Max,
-    Min,
-    Avg)
+from django.db.models import Max, Min
 
 
 def index(request):
@@ -26,15 +11,13 @@ def index(request):
 
 
 def main_function(request):
-    return render(request, 'survey/main.html',
-                  {})
+    return render(request, 'survey/main.html')
 
 
 def import_questions_choices(request):
     if request.method == "GET":
         form = ImportQuestionsChoicesForm()
-        return render(request, 'survey/import_questions_choices.html',
-                      {'form': form})
+        return render(request, 'survey/import_questions_choices.html', {'form': form})
 
     elif request.method == "POST":
         form = ImportQuestionsChoicesForm(request.POST)
