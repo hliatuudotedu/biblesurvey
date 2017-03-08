@@ -14,3 +14,7 @@ class ImportQuestionsChoicesForm(forms.Form):
             attrs={'rows': 10, 'cols': 80}))
 
 
+class ImportBibleVersesForm(forms.Form):
+    all_verses = forms.CharField(
+        required=True, widget=forms.Textarea(
+            attrs={'rows': 10, 'cols': 80}))

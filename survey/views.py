@@ -1,9 +1,25 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Question, Choice, SurveyQuestion, SurveyResult, Survey, Provider
-from .forms import SurveyForm, ImportQuestionsChoicesForm
+
+from .models import (
+    Question,
+    Choice,
+    SurveyQuestion,
+    SurveyResult,
+    Survey,
+    Provider)
+
+from .forms import (
+    SurveyForm,
+    ImportQuestionsChoicesForm,
+    ImportBibleVersesForm)
+
 from django.utils import timezone
-from django.db.models import Max, Min
+
+from django.db.models import (
+    Max,
+    Min,
+    Avg)
 
 
 def index(request):
@@ -11,13 +27,15 @@ def index(request):
 
 
 def main_function(request):
-    return render(request, 'survey/main.html')
+    return render(request, 'survey/main.html',
+                  {})
 
 
 def import_questions_choices(request):
     if request.method == "GET":
         form = ImportQuestionsChoicesForm()
-        return render(request, 'survey/import_questions_choices.html', {'form': form})
+        return render(request, 'survey/import_questions_choices.html',
+                      {'form': form})
 
     elif request.method == "POST":
         form = ImportQuestionsChoicesForm(request.POST)
@@ -208,3 +226,57 @@ def survey_processing(request, provider_name, survey_name):
                        'my_own_points': my_own_points,
                        'all_max':all_max,
                        'all_min':all_min})
+
+
+def import_bible_verses(request):
+        if request.method == "GET":
+            form = ImportBibleVersesForm()
+            return render(request, 'survey/import_bible_verses.html',
+                          {'form': form})
+
+        elif request.method == "POST":
+            form = ImportBibleVersesForm(request.POST)
+            if form.is_valid():
+
+                result = form.cleaned_data["all_verses"]
+
+                error_flag = False
+                error_message = "Nothing wrong!"
+
+                # find the numbers
+                # find the sentences
+                # replace the number with ____
+                # from the number, generate "fake" answers
+                # generate the complete questions.
+
+                # YOU NEED TO ADD LOGIC HERE
+                # using regular expression (regex) to extract
+                # the number that we wanted.
+                # initially, only things like 144,000
+                # Assume that each integer begins
+                # with [1-9] followed by [0-9]*
+                # After the comma (,) symbol, if
+                # you still have digits, you should consider
+                # it as a part of a "bigger" number.
+
+                # Note: It may contain multiple integers...
+
+                new_result = result.upper()
+
+                q_with_a = new_result +\
+                    "Question: Then I heard the number of " +\
+                    "those who were " +\
+                    "sealed: _______ from all the tribes of Israel." +\
+                    "A. 144,000. B: 144. C. 244000, D, 344343"
+
+                if error_flag:
+                    result = error_message
+                else:
+                    result = q_with_a
+
+                return HttpResponse(
+                    result, content_type='text/plain')
+            else:
+                pass
+        else:
+            pass
