@@ -243,12 +243,6 @@ def import_bible_verses(request):
                 error_flag = False
                 error_message = "Nothing wrong!"
 
-                # find the numbers
-                # find the sentences
-                # replace the number with ____
-                # from the number, generate "fake" answers
-                # generate the complete questions.
-
                 # YOU NEED TO ADD LOGIC HERE
                 # using regular expression (regex) to extract
                 # the number that we wanted.
