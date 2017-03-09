@@ -244,11 +244,11 @@ def import_bible_verses(request):
 
                 new_result = re.sub('[^0-9,]', " ", result)
 
-                q_with_a = new_result +\
+                q_with_a = new_result + " " +\
                     "Question: Then I heard the number of " +\
                     "those who were " +\
                     "sealed: _______ from all the tribes of Israel." +\
-                    "A. 144,000. B: 144. C. 244000, D, 344343"
+                    "A. 144,000. B. 144 C. 244,000 D. 344,343"
 
                 if error_flag:
                     result = error_message
