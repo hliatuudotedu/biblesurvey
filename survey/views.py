@@ -242,9 +242,9 @@ def import_bible_verses(request):
                 error_flag = False
                 error_message = "Nothing wrong!"
 
-                new_result = re.sub('[^0-9,]', "\n", result)
+                new_result = re.sub('[^0-9,]', " ", result)
 
-                q_with_a = new_result + "\n" +\
+                q_with_a = new_result + " " +\
                     "Question: Then I heard the number of those who were " +\
                     "sealed: _______ from all the tribes of Israel." + "\n" +\
                     "A. 144,000. B. 144 C. 244,000 D. 344,343"
@@ -254,8 +254,7 @@ def import_bible_verses(request):
                 else:
                     result = q_with_a
 
-                return HttpResponse(
-                    result, content_type='text/plain')
+                return HttpResponse(result, content_type='text/plain')
             else:
                 pass
         else:
