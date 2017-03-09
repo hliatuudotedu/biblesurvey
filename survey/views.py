@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import re
 
 from .models import (
     Question,
@@ -241,19 +242,7 @@ def import_bible_verses(request):
                 error_flag = False
                 error_message = "Nothing wrong!"
 
-                # YOU NEED TO ADD LOGIC HERE
-                # using regular expression (regex) to extract
-                # the number that we wanted.
-                # initially, only things like 144,000
-                # Assume that each integer begins
-                # with [1-9] followed by [0-9]*
-                # After the comma (,) symbol, if
-                # you still have digits, you should consider
-                # it as a part of a "bigger" number.
-
-                # Note: It may contain multiple integers...
-
-                new_result = result.upper()
+                new_result = re.sub('[^0-9,]', "", result)
 
                 q_with_a = new_result +\
                     "Question: Then I heard the number of " +\
