@@ -1,1 +1,17 @@
+{% extends 'base.html' %}
+{% block head_title %}Import Questions and their Choices
+{% endblock %}
 
+{% block content %}
+    <div class="h2">Import Bible Verses</div>
+
+    <div class="h3">Note: Paste Bible verses here and our magic
+    program will do magic.</div>
+
+    <form method="POST" action=
+            "{% url 'import_bible_verses' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="action">Import Them All</button>
+    </form>
+{% endblock %}
