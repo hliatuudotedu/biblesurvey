@@ -27,8 +27,7 @@ def index(request):
 
 
 def main_function(request):
-    return render(request, 'survey/main.html',
-                  {})
+    return render(request, 'survey/main.html')
 
 
 def import_questions_choices(request):

@@ -19,9 +19,9 @@ from survey.views import main_function, survey_processing, import_questions_choi
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', main_function, name="main"),
-    url(r'^import_question_choices/$', import_questions_choices, name="import"),
-    url(r'^import_bible_verses$', import_bible_verses, name="import_bible_verses"),
+    url(r'^$', main_function, name='main'),
+    url(r'^import_question_choices$', import_questions_choices, name='import'),
+    url(r'^import_bible_verses$', import_bible_verses, name='import_bible_verses'),
 
     # ex: /provider/mingwang/survey1/
     url(r'^provider/(?P<provider_name>[a-zA-Z]+[a-zA-Z0-9]*)/' +\

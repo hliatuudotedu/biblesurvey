@@ -6,23 +6,26 @@
 </head>
 <body>
 <h1>Bible Survey</h1>
-
 <p>Welcome to Bible Random Number Project.</p>
     <ul>
-        <a class = "btn btn-primary text-center"
-           href="{% url 'survey_processing' provider_name='group1' survey_name='Bible'%}">
-            Continue to the survey
-        </a>
-        <a class = "btn btn-primary text-center"
-           href="{% url 'import_bible_verses' %}">
-            Import Bible Verses
-        </a>
+        <li>
+            <a class = "btn btn-primary text-center"
+               href="{% url 'survey_processing' provider_name='group1' survey_name='Bible' %}">
+                Continue to the survey
+            </a>
+        </li>
+        <li>
+            <a class = "btn btn-primary text-center"
+               href="{% url 'import_bible_verses' %}">
+                Import Bible Verses
+            </a>
+        </li>
     </ul>
 <p>My favorite Bible verse at this time is: Isaiah 41:10 - Lance Dell</p>
 
-<p>My favorite Bible verses at this time are: Psalm 72:12-14. - Brantley English </p>
+<p>My favorite Bible verses at this time are: Psalm 72:12-14. - Brantley English</p>
 
-<p>My favorite Bible verse at this time is: Psalm 61:1-3 - Joshua Stucky </p>
+<p>My favorite Bible verses at this time are: Psalm 61:1-3 - Joshua Stucky</p>
     
 </body>
 </html>
