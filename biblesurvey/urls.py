@@ -13,14 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url
 from django.contrib import admin
-from survey.views import main_function, survey_processing, import_questions_choices
+from survey.views import main_function, survey_processing, import_questions_choices, import_bible_verses
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^import$', import_questions_choices, name="import"),
     url(r'^$', main_function, name="main"),
+    url(r'^import_question_choices/$', import_questions_choices, name="import"),
+    url(r'^import_bible_verses/$', import_bible_verses, name="import_bible_verses"),
 
     # ex: /provider/mingwang/survey1/
     url(r'^provider/(?P<provider_name>[a-zA-Z]+[a-zA-Z0-9]*)/' +\
