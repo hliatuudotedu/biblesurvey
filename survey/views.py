@@ -231,8 +231,7 @@ def survey_processing(request, provider_name, survey_name):
 def import_bible_verses(request):
         if request.method == "GET":
             form = ImportBibleVersesForm()
-            return render(request, 'survey/import_bible_verses.html',
-                          {'form': form})
+            return render(request, 'survey/import_bible_verses.html', {'form': form})
 
         elif request.method == "POST":
             form = ImportBibleVersesForm(request.POST)
