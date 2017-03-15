@@ -242,7 +242,7 @@ def import_bible_verses(request):
                 error_flag = False
                 error_message = "Nothing wrong!"
 
-                new_result = re.sub('^[1-9][0-9]*$', " ", result)
+                new_result = re.sub('[^1-9][0-9]*$', " ", result)
 
                 q_with_a = new_result + " " +\
                     "Question: Then I heard the number of those who were " +\
@@ -252,7 +252,7 @@ def import_bible_verses(request):
                 if error_flag:
                     result = error_message
                 else:
-                    result = q_with_a
+                    result = new_result
 
                 return HttpResponse(result, content_type='text/plain')
             else:
