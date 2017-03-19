@@ -242,7 +242,7 @@ def import_bible_verses(request):
                 error_flag = False
                 error_message = "Nothing wrong!"
 
-                new_result = re.sub('([1-9])([0-9]*)(,[0-9]+)*', "______", result)
+                new_result = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', "______", result)
 
                 q_with_a = new_result + " " +\
                     "Question: Then I heard the number of those who were " +\
