@@ -242,12 +242,12 @@ def import_bible_verses(request):
                 error_flag = False
                 error_message = "Nothing wrong!"
 
-                sentences = result.split('. ');
+                sentences = result.split();
 
                 new_result = "";
 
                 for i in sentences:
-                    new_result = new_result + i + "===";
+                    new_result = new_result + i + "\n";
 
                 #new_result = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', "______", result, 1)
 
