@@ -248,7 +248,7 @@ def import_bible_verses(request):
                 # strip leading and trailing white spaces and replace first
                 # instance of valid number with ____
                 for s in sentences:
-                    s = s.strip().strip('\n')
+                    s = s.strip('\n').strip()
                     s = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', "______", s, 1)
 
                 # result for new string
@@ -257,7 +257,7 @@ def import_bible_verses(request):
                 # create a new string and append a period and newline character
                 # to each sentence
                 for s in sentences:
-                    new_result = new_result + s + ".\n"
+                    new_result = new_result + s + "===="
 
                 if error_flag:
                     result = error_message
