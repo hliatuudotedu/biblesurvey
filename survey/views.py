@@ -254,7 +254,13 @@ def import_bible_verses(request):
                 for i in range(0, len(sentences) - 1):
                     test = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', " ______", sentences[i], 1)
                     if (sentences[i] != test):
-                        new_result = "%s%s%s%s" % (new_result, test.strip('\n').strip(), ".", re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i]), "\n\n")
+                        new_result = "%s%s%s%s%s" % (
+                            new_result,
+                            test.strip('\n').strip(),
+                            ". ",
+                            re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i]).group(0),
+                            "\n\n"
+                        )
 
                 if error_flag:
                     result = error_message
