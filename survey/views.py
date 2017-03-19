@@ -242,16 +242,21 @@ def import_bible_verses(request):
                 error_flag = False
                 error_message = "Nothing wrong!"
 
-                sentences = result.split();
+                # split the result on periods
+                sentences = result.split('.')
 
-                new_result = "";
+                # strip leading and trailing white spaces and replace first
+                # instance of valid number with ____
+                for s in sentences:
+                    s = s.strip().sub(' ([1-9])([0-9]*)(,[0-9]+)*', "______", result, 1);
 
-                for i in sentences:
-                    new_result = new_result + i + "\n";
+                # result for new string
+                new_result = ""
 
-                #new_result = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', "______", result, 1)
-
-
+                # create a new string and append a period and newline character
+                # to each sentence
+                for s in sentences:
+                    new_result = new_result + s + ".\n"
 
                 if error_flag:
                     result = error_message
