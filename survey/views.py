@@ -248,7 +248,8 @@ def import_bible_verses(request):
                 # strip leading and trailing white spaces and replace first
                 # instance of valid number with ____
                 for s in sentences:
-                    s = s.strip().sub(' ([1-9])([0-9]*)(,[0-9]+)*', "______", result, 1);
+                    s = s.strip()
+                    re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', "______", s, 1)
 
                 # result for new string
                 new_result = ""
