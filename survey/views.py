@@ -245,20 +245,16 @@ def import_bible_verses(request):
                 # split the result on periods
                 sentences = result.split('.')
 
-                # strip leading and trailing white spaces and replace first
-                # instance of valid number with ____
-                for i in range(0, len(sentences)):
-                    sentences[i] = sentences[i].strip('\n')
-                    sentences[i] = sentences[i].strip()
-                    sentences[i] = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', "______", sentences[i], 1)
-
                 # result for new string
                 new_result = ""
 
-                # create a new string and append a period and newline character
-                # to each sentence
-                for s in sentences:
-                    new_result = "%s%s%s" % (new_result, s, ".\n")
+                # strip leading and trailing white spaces and replace first
+                # instance of valid number with ____
+                # skip last split item, which is just a white space
+                for i in range(0, len(sentences-1)):
+                    test = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', " ______", sentences[i], 1)
+                    if (sentences[i] == test):
+                        new_result = "%s%s%s" % (new_result, test.strip('\n').strip(), ".\n\n")
 
                 if error_flag:
                     result = error_message
