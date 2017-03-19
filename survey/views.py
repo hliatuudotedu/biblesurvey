@@ -251,7 +251,7 @@ def import_bible_verses(request):
                 # strip leading and trailing white spaces and replace first
                 # instance of valid number with ____
                 # skip last split item, which is just a white space
-                for i in range(0, len(sentences-1)):
+                for i in range(0, len(sentences) - 1):
                     test = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', " ______", sentences[i], 1)
                     if (sentences[i] == test):
                         new_result = "%s%s%s" % (new_result, test.strip('\n').strip(), ".\n\n")
