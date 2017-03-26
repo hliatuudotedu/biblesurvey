@@ -258,7 +258,7 @@ def import_bible_verses(request):
                 if error_flag:
                     result = error_message
                 else:
-                    result = new_result + question_count + "question(s) have been created."
+                    result = new_result + str(question_count) + "question(s) have been created."
 
                 return HttpResponse(result, content_type='text/plain')
             else:
