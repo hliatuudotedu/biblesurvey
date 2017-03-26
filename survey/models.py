@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 
+
 class Provider(models.Model):
     name = models.CharField(max_length=400,
                             blank=False,

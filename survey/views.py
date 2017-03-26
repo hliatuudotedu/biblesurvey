@@ -1,26 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import re
-
-from .models import (
-    Question,
-    Choice,
-    SurveyQuestion,
-    SurveyResult,
-    Survey,
-    Provider)
-
-from .forms import (
-    SurveyForm,
-    ImportQuestionsChoicesForm,
-    ImportBibleVersesForm)
-
+from .models import Question, Choice, SurveyQuestion, SurveyResult, Survey, Provider
+from .forms import SurveyForm, ImportQuestionsChoicesForm, ImportBibleVersesForm
 from django.utils import timezone
-
-from django.db.models import (
-    Max,
-    Min,
-    Avg)
+from django.db.models import Max, Min, Avg
 
 
 def index(request):
@@ -34,8 +18,7 @@ def main_function(request):
 def import_questions_choices(request):
     if request.method == "GET":
         form = ImportQuestionsChoicesForm()
-        return render(request, 'survey/import_questions_choices.html',
-                      {'form': form})
+        return render(request, 'survey/import_questions_choices.html', {'form': form})
 
     elif request.method == "POST":
         form = ImportQuestionsChoicesForm(request.POST)
@@ -242,6 +225,9 @@ def import_bible_verses(request):
                 error_flag = False
                 error_message = "Nothing wrong!"
 
+                category_id = 1
+                question_count = 0
+
                 # split the result on periods
                 sentences = result.split('.')
 
@@ -253,7 +239,7 @@ def import_bible_verses(request):
                 # skip last split item, which is just a white space
                 for i in range(0, len(sentences) - 1):
                     test = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', " ______", sentences[i], 1)
-                    if (sentences[i] != test):
+                    if sentences[i] != test:
                         new_result = "%s%s%s%s%s" % (
                             new_result,
                             test.strip('\n').strip(),
@@ -261,11 +247,18 @@ def import_bible_verses(request):
                             re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i]).group(0),
                             "\n\n"
                         )
+                        question_count += 1
+
+                    question = Question(
+                        question_text=sentences[i],
+                        pub_date=timezone.now(),
+                        category_id=category_id)
+                    question.save()
 
                 if error_flag:
                     result = error_message
                 else:
-                    result = new_result
+                    result = new_result + question_count + "question(s) have been created."
 
                 return HttpResponse(result, content_type='text/plain')
             else:
