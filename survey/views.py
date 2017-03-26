@@ -229,7 +229,6 @@ def import_bible_verses(request):
                 error_flag = False
                 error_message = "Nothing wrong!"
 
-                survey_id = 1
                 category_id = 1
                 question_count = 0
 
@@ -262,7 +261,7 @@ def import_bible_verses(request):
                     question.save()
 
                     survey = SurveyQuestion(
-                        survey=survey_id,
+                        survey='Bible',
                         question=question,
                         datetime_created=timezone.now()
                     )
