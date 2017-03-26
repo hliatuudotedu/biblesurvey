@@ -220,11 +220,16 @@ def import_bible_verses(request):
             form = ImportBibleVersesForm(request.POST)
             if form.is_valid():
 
+                # delete all Questions and Choices
+                Question.objects.all().delete()
+                Choice.objects.all().delete()
+
                 result = form.cleaned_data["all_verses"]
 
                 error_flag = False
                 error_message = "Nothing wrong!"
 
+                survey_id = 1
                 category_id = 1
                 question_count = 0
 
@@ -252,13 +257,21 @@ def import_bible_verses(request):
                     question = Question(
                         question_text=sentences[i],
                         pub_date=timezone.now(),
-                        category_id=category_id)
+                        category_id=category_id
+                    )
                     question.save()
+
+                    survey = SurveyQuestion(
+                        survey=survey_id,
+                        question=question,
+                        datetime_created=timezone.now()
+                    )
+                    survey.save()
 
                 if error_flag:
                     result = error_message
                 else:
-                    result = new_result + str(question_count) + "question(s) have been created."
+                    result = new_result + str(question_count) + " question(s) have been created."
 
                 return HttpResponse(result, content_type='text/plain')
             else:
