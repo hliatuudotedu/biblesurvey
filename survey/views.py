@@ -231,6 +231,7 @@ def import_bible_verses(request):
 
                 category_id = 1
                 question_count = 0
+                point_value = 1
 
                 # split the result on periods
                 sentences = result.split('.')
@@ -260,8 +261,15 @@ def import_bible_verses(request):
                     )
                     question.save()
 
+                    choices = Choice(
+                        question=question,
+                        choice_text=re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i]).group(0),
+                        point_value=point_value
+                    )
+                    choices.save()
+
                     survey = SurveyQuestion(
-                        survey='Bible',
+                        survey=Survey.objects.get(id=1),
                         question=question,
                         datetime_created=timezone.now()
                     )
