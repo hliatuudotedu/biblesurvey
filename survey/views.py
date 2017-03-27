@@ -239,9 +239,8 @@ def import_bible_verses(request):
                 # instance of valid number with ____
                 # skip last split item, which is just a white space
                 for i in range(0, len(sentences) - 1):
-                    test = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', " ______", sentences[i], 1)
-                    answer = re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i]).group(0)
-
+                    test = re.sub('([1-9])([0-9]*)(,[0-9]+)*', " ______", sentences[i], 1)
+                    answer = re.search('([1-9])([0-9]*)(,[0-9]+)*', sentences[i]).group(0)
                     question_count += 1
 
                     question = Question(
