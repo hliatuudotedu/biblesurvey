@@ -240,17 +240,7 @@ def import_bible_verses(request):
                 # skip last split item, which is just a white space
                 for i in range(0, len(sentences) - 1):
                     test = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', " ______", sentences[i], 1)
-                    answer = int(re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i]))
-
-                    if answer % 2 == 0:
-                        choice1 = random.randrange(answer/2, answer*1.5, 1)
-                        choice2 = random.randrange(answer/2, answer*1.5, 1)
-                        choice3 = random.randrange(answer/2, answer*1.5, 1)
-
-                    else:
-                        choice1 = random.randrange(answer/2 + 0.5, answer*1.5-0.5, 1)
-                        choice2 = random.randrange(answer/2 + 0.5, answer*1.5-0.5, 1)
-                        choice3 = random.randrange(answer/2 + 0.5, answer*1.5-0.5, 1)
+                    answer = re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i]).group(0)
 
                     question_count += 1
 
@@ -267,27 +257,6 @@ def import_bible_verses(request):
                         point_value=1
                     )
                     answer.save()
-
-                    choice1 = Choice(
-                        question=question,
-                        choice_text=str(choice1),
-                        point_value=0
-                    )
-                    choice1.save()
-
-                    choice2 = Choice(
-                        question=question,
-                        choice_text=str(choice2),
-                        point_value=0
-                    )
-                    choice2.save()
-
-                    choice3 = Choice(
-                        question=question,
-                        choice_text=str(choice3),
-                        point_value=0
-                    )
-                    choice3.save()
 
                     survey = SurveyQuestion(
                         survey=Survey.objects.get(id=1),
