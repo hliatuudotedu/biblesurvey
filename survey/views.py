@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import re
+import re, random
 from .models import Question, Choice, SurveyQuestion, SurveyResult, Survey, Provider
 from .forms import SurveyForm, ImportQuestionsChoicesForm, ImportBibleVersesForm
 from django.utils import timezone
@@ -231,7 +231,6 @@ def import_bible_verses(request):
 
                 category_id = 1
                 question_count = 0
-                point_value = 1
 
                 # split the result on periods
                 sentences = result.split('.')
@@ -241,6 +240,12 @@ def import_bible_verses(request):
                 # skip last split item, which is just a white space
                 for i in range(0, len(sentences) - 1):
                     test = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', " ______", sentences[i], 1)
+                    answer = re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i]).group(0)
+
+                    choice1 = random.randrange(int(answer)/2, int(answer)*1.5, 1)
+                    choice2 = random.randrange(int(answer)/2, int(answer)*1.5, 1)
+                    choice3 = random.randrange(int(answer)/2, int(answer)*1.5, 1)
+
                     question_count += 1
 
                     question = Question(
@@ -250,12 +255,33 @@ def import_bible_verses(request):
                     )
                     question.save()
 
-                    choices = Choice(
+                    answer = Choice(
                         question=question,
-                        choice_text=re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i]).group(0),
-                        point_value=point_value
+                        choice_text=answer,
+                        point_value=1
                     )
-                    choices.save()
+                    answer.save()
+
+                    choice1 = Choice(
+                        question=question,
+                        choice_text=str(choice1),
+                        point_value=0
+                    )
+                    choice1.save()
+
+                    choice2 = Choice(
+                        question=question,
+                        choice_text=str(choice2),
+                        point_value=0
+                    )
+                    choice2.save()
+
+                    choice3 = Choice(
+                        question=question,
+                        choice_text=str(choice3),
+                        point_value=0
+                    )
+                    choice3.save()
 
                     survey = SurveyQuestion(
                         survey=Survey.objects.get(id=1),
