@@ -242,9 +242,9 @@ def import_bible_verses(request):
                     test = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', " ______", sentences[i], 1)
                     answer = re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i]).group(0)
 
-                    choice1 = random.randrange(int(answer)/2, int(answer)*1.5, 1)
-                    choice2 = random.randrange(int(answer)/2, int(answer)*1.5, 1)
-                    choice3 = random.randrange(int(answer)/2, int(answer)*1.5, 1)
+                    choice1 = int(random.randrange(int(answer)/2, int(answer)*1.5, 1))
+                    choice2 = int(random.randrange(int(answer)/2, int(answer)*1.5, 1))
+                    choice3 = int(random.randrange(int(answer)/2, int(answer)*1.5, 1))
 
                     question_count += 1
 
