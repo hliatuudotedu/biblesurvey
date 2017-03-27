@@ -240,17 +240,18 @@ def import_bible_verses(request):
                 # skip last split item, which is just a white space
                 for i in range(0, len(sentences) - 1):
                     test = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', " ______", sentences[i], 1)
-                    answer = re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i])
+                    num = re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i])
+                    answer = int(num)
 
-                    if int(answer) % 2 == 0:
-                        choice1 = int(random.randrange(int(answer)/2, int(answer)*1.5, 1))
-                        choice2 = int(random.randrange(int(answer)/2, int(answer)*1.5, 1))
-                        choice3 = int(random.randrange(int(answer)/2, int(answer)*1.5, 1))
+                    if answer % 2 == 0:
+                        choice1 = random.randrange(answer/2, answer*1.5, 1)
+                        choice2 = random.randrange(answer/2, answer*1.5, 1)
+                        choice3 = random.randrange(answer/2, answer*1.5, 1)
 
                     else:
-                        choice1 = int(random.randrange(int(answer) / 2 + 0.5, int(answer) * 1.5 - 0.5, 1))
-                        choice2 = int(random.randrange(int(answer) / 2 + 0.5, int(answer) * 1.5 - 0.5, 1))
-                        choice3 = int(random.randrange(int(answer) / 2 + 0.5, int(answer) * 1.5 - 0.5, 1))
+                        choice1 = random.randrange(answer/2 + 0.5, answer*1.5-0.5, 1)
+                        choice2 = random.randrange(answer/2 + 0.5, answer*1.5-0.5, 1)
+                        choice3 = random.randrange(answer/2 + 0.5, answer*1.5-0.5, 1)
 
                     question_count += 1
 
