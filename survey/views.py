@@ -236,26 +236,15 @@ def import_bible_verses(request):
                 # split the result on periods
                 sentences = result.split('.')
 
-                # result for new string
-                new_result = ""
-
                 # strip leading and trailing white spaces and replace first
                 # instance of valid number with ____
                 # skip last split item, which is just a white space
                 for i in range(0, len(sentences) - 1):
                     test = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', " ______", sentences[i], 1)
-                    if sentences[i] != test:
-                        new_result = "%s%s%s%s%s" % (
-                            new_result,
-                            test.strip('\n').strip(),
-                            ". ",
-                            re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i]).group(0),
-                            "\n\n"
-                        )
-                        question_count += 1
+                    question_count += 1
 
                     question = Question(
-                        question_text=sentences[i],
+                        question_text=test,
                         pub_date=timezone.now(),
                         category_id=category_id
                     )
@@ -278,7 +267,7 @@ def import_bible_verses(request):
                 if error_flag:
                     result = error_message
                 else:
-                    result = new_result + str(question_count) + " question(s) have been created."
+                    result = str(question_count) + " question(s) have been created."
 
                 return HttpResponse(result, content_type='text/plain')
             else:
