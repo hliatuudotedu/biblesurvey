@@ -240,8 +240,7 @@ def import_bible_verses(request):
                 # skip last split item, which is just a white space
                 for i in range(0, len(sentences) - 1):
                     test = re.sub(' ([1-9])([0-9]*)(,[0-9]+)*', " ______", sentences[i], 1)
-                    num = re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i])
-                    answer = int(num)
+                    answer = int(re.search(' ([1-9])([0-9]*)(,[0-9]+)*', sentences[i]).group(0))
 
                     if answer % 2 == 0:
                         choice1 = random.randrange(answer/2, answer*1.5, 1)
