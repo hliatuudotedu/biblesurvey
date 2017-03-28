@@ -94,3 +94,4 @@ survey/__pycache__/
 survey/migrations/__pycache__/
 .idea/inspectionProfiles/
 .idea
+/biblesurvey/settings/local.py
