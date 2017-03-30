@@ -239,37 +239,39 @@ def import_bible_verses(request):
                 # instance of valid number with ____
                 # skip last split item, which is just a white space
                 for i in range(0, len(sentences) - 1):
-                    test = re.sub('([1-9])([0-9]*)(,[0-9]+)*', " ______", sentences[i], 1)
-                    answer = re.search('([1-9])([0-9]*)(,[0-9]+)*', sentences[i]).group(0)
-                    question_count += 1
+                    text = re.sub('([1-9])([0-9]*)(,[0-9]+)*', " ______", sentences[i], 1)
+                    if sentences[i] != text:
+                        answer = re.search('([1-9])([0-9]*)(,[0-9]+)*', sentences[i]).group(0)
 
-                    question = Question(
-                        question_text=test,
-                        pub_date=timezone.now(),
-                        category_id=category_id
-                    )
-                    question.save()
+                        question = Question(
+                            question_text=text,
+                            pub_date=timezone.now(),
+                            category_id=category_id
+                        )
+                        question.save()
 
-                    answer = Choice(
-                        question=question,
-                        choice_text=answer,
-                        point_value=1
-                    )
-                    answer.save()
+                        answer = Choice(
+                            question=question,
+                            choice_text=answer,
+                            point_value=1
+                        )
+                        answer.save()
 
-                    survey = SurveyQuestion(
-                        survey=Survey.objects.get(id=1),
-                        question=question,
-                        datetime_created=timezone.now()
-                    )
-                    survey.save()
+                        survey = SurveyQuestion(
+                            survey=Survey.objects.get(id=1),
+                            question=question,
+                            datetime_created=timezone.now()
+                        )
+                        survey.save()
+
+                        question_count += 1
 
                 if error_flag:
                     result = error_message
                 else:
                     result = str(question_count) + " question(s) have been created."
 
-                return HttpResponse(result, content_type='text/plain')
+                return render(request, 'survey/main.html', {'result': result})
             else:
                 pass
         else:

@@ -7,10 +7,10 @@
 
     <div class="h3">Note: Paste Bible verses here and our program will do magic.</div>
 
-    <form method="POST" action=
-            "{% url 'import_bible_verses' %}">
+    <form method="POST" action="{% url 'import_bible_verses' %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" name="action">Import Them All</button>
+        <button type="submit" class="btn btn-primary" name="action">Import Them All</button>
     </form>
+    <a href="{% url 'main' %}" class="btn btn-danger">Cancel</a>
 {% endblock %}
