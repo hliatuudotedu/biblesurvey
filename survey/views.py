@@ -243,6 +243,18 @@ def import_bible_verses(request):
                     if sentences[i] != text:
                         answer = re.search('([1-9])([0-9]*)(,[0-9]+)*', sentences[i]).group(0)
 
+                        stranswer = str(answer)
+                        intanswer = int(stranswer.replace(',', ''))
+
+                        if intanswer % 2 == 0:
+                            wrganswer1 = intanswer / 2 + intanswer * 0.2
+                            wrganswer2 = intanswer * 1.5
+                            wrganswer3 = intanswer - intanswer * 0.1
+                        else:
+                            wrganswer1 = intanswer / 2 + 1.5
+                            wrganswer2 = intanswer * 1.5 - 0.5
+                            wrganswer3 = intanswer * 2
+
                         question = Question(
                             question_text=text,
                             pub_date=timezone.now(),
@@ -252,10 +264,31 @@ def import_bible_verses(request):
 
                         answer = Choice(
                             question=question,
-                            choice_text=answer,
+                            choice_text=intanswer,
                             point_value=1
                         )
                         answer.save()
+
+                        choice1 = Choice(
+                            question=question,
+                            choice_text=int(wrganswer1),
+                            point_value=0
+                        )
+                        choice1.save()
+
+                        choice2 = Choice(
+                            question=question,
+                            choice_text=int(wrganswer2),
+                            point_value=0
+                        )
+                        choice2.save()
+
+                        choice3 = Choice(
+                            question=question,
+                            choice_text=int(wrganswer3),
+                            point_value=0
+                        )
+                        choice3.save()
 
                         survey = SurveyQuestion(
                             survey=Survey.objects.get(id=1),
