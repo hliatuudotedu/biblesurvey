@@ -220,10 +220,6 @@ def import_bible_verses(request):
             form = ImportBibleVersesForm(request.POST)
             if form.is_valid():
 
-                # delete all Questions and Choices
-                Question.objects.all().delete()
-                Choice.objects.all().delete()
-
                 result = form.cleaned_data["all_verses"]
 
                 error_flag = False
