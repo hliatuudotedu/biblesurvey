@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import re, random
 from .models import Question, Choice, SurveyQuestion, SurveyResult, Survey, Provider
-from .forms import SurveyForm, ImportQuestionsChoicesForm, ImportBibleVersesForm
+from .forms import SurveyForm, ImportQuestionsChoicesForm, ImportBibleVersesForm, NumberOfQuestionsForm
 from django.utils import timezone
 from django.db.models import Max, Min, Avg
 
