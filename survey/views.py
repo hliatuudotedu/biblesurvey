@@ -12,7 +12,8 @@ def index(request):
 
 
 def main_function(request):
-    return render(request, 'survey/main.html')
+    form = NumberOfQuestionsForm
+    return render(request, 'survey/main.html', {'form': form})
 
 
 def import_questions_choices(request):

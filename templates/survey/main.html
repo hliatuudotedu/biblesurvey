@@ -13,6 +13,10 @@
             </div>
         {% endif %}
         <div class="text-center">
+            <form action="{% url 'survey_processing' provider_name='group1' survey_name='Bible' %}">
+                <input type="number">
+                <button class="btn btn-primary" type="submit">Continue to the Survey</button>
+            </form>
             <a class="btn btn-primary"
                href="{% url 'survey_processing' provider_name='group1' survey_name='Bible' %}">
                 Continue To The Survey
