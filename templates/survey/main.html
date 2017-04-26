@@ -14,13 +14,10 @@
         {% endif %}
         <div class="text-center">
             <form action="{% url 'survey_processing' provider_name='group1' survey_name='Bible' %}">
-                <input type="number">
+                <label>Number of questions to be challenged: </label>
+                <input type="number" min="0">
                 <button class="btn btn-primary" type="submit">Continue to the Survey</button>
             </form>
-            <a class="btn btn-primary"
-               href="{% url 'survey_processing' provider_name='group1' survey_name='Bible' %}">
-                Continue To The Survey
-            </a>
             <a class="btn btn-primary" href="{% url 'import_bible_verses' %}">Import Bible Verses</a><br><br>
 
             <p>My favorite Bible verse at this time is: Isaiah 41:10 - Lance Dell</p>
