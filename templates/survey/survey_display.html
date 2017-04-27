@@ -1,23 +1,14 @@
 {% extends 'base.html' %}
-
-{% block title %}
-    Display the survey
-{% endblock %}
-
+{% block title %}Display the survey{% endblock %}
 {% block content %}
     <div id="content">
-
-        <p id="">
+        <p>
             <a href="#" id="incfont" class="btn btn-primary">Increase Font Size</a>
             <a href="#" id="decfont" class="btn btn-success">Decrease Font Size</a>
         </p>
-        <form action=
-                      "{% url 'survey_processing' provider_name=provider_name survey_name=survey_name %}"
-              method="post">
 
-            <input type="hidden" value=
-                    "{{ csrf_token }}"
-                   name="csrfmiddlewaretoken">
+        <form action="{% url 'survey_processing' provider_name=provider_name survey_name=survey_name %}" method="post">
+            <input type="hidden" value="{{ csrf_token }}" name="csrfmiddlewaretoken">
             <label for="patient_name">Patient Name</label>
             <input type="text"
                    placeholder="Patient Name is required"
@@ -25,27 +16,22 @@
                    maxlength="100"
                    id="patient_name"
                    required="required">
-
             <label for="patient_name2">*</label>
             <br/>
+            {% for q in questions %}
 
-            {% for item in questions %}
+                {{ q.sequence_num }}&nbsp;
+                {{ q.question_text }}<br/>
 
-                {{ item.sequence_num }}&nbsp;
-                {{ item.question_text }}<br/>
-
-                {% for c in item.its_own_choices %}
+                {% for c in q.its_own_choices %}
                     <input type="radio"
-                           name="__QuestionNum__{{ item.id }}"
+                           name="__QuestionNum__{{ q.id }}"
                            value="{{ c.id }}"
                            required="required">
                     {{ c.choice_text }}<br>
                 {% endfor %}
-
             {% endfor %}
-
             <input class="btn btn-primary text-center" type="submit" value="Submit my answers!"/>
-
         </form>
         <a href="{% url 'main' %}" class="btn btn-danger">Cancel</a>
     </div>

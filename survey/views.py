@@ -12,7 +12,9 @@ def index(request):
 
 
 def main_function(request):
-    form = NumberOfQuestionsForm
+    form = NumberOfQuestionsForm(request.POST or None)
+    if form.is_valid():
+        num_questions = form.cleaned_data['num_questions']
     return render(request, 'survey/main.html', {'form': form})
 
 
@@ -144,7 +146,6 @@ def display_using_render():
 
 def survey_processing(request, provider_name, survey_name):
     if request.method == "GET":
-
         a_provider = Provider.objects.filter(name=provider_name)
         if a_provider.count() == 0:
             return HttpResponse(

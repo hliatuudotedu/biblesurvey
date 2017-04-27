@@ -25,9 +25,7 @@
         });
     </script>
 </head>
-
 <body>
-
     <!-- The following is from http://www.tangowithdjango.com/book/chapters/bootstrap.html -->
     <!--
     <div class="navbar navbar-default">
@@ -49,7 +47,11 @@
     </div>
     -->
     <!-- The above is from http://www.tangowithdjango.com/book/chapters/bootstrap.html -->
-
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'main' %}">Bible Survey</a>
+        </div>
+    </nav>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -58,9 +60,4 @@
             </div>
         </div>
     </div>
-
-
-
-
-
 </body>

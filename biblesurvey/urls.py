@@ -24,7 +24,6 @@ urlpatterns = [
     url(r'^import_bible_verses/$', import_bible_verses, name='import_bible_verses'),
 
     # ex: /provider/mingwang/survey1/
-    url(r'^provider/(?P<provider_name>[a-zA-Z]+[a-zA-Z0-9]*)/' +\
-        '(?P<survey_name>[a-zA-Z]+[a-zA-Z0-9]*)/$',
+    url(r'^provider/(?P<provider_name>[a-zA-Z]+[a-zA-Z0-9]*)/(?P<survey_name>[a-zA-Z]+[a-zA-Z0-9]*)/$',
         survey_processing, name='survey_processing')
 ]

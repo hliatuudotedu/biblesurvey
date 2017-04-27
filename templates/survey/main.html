@@ -2,8 +2,7 @@
 {% block content %}
 <div class="panel panel-info">
     <div class="panel panel-heading">
-        <h1>Bible Survey</h1>
-        <p>Welcome to the Bible Random Number Project</p>
+        <h2>Welcome to the Bible Random Number Project</h2>
     </div>
     <div class="panel-body">
         {% if result %}
@@ -12,14 +11,22 @@
                 <strong>{{ result }}</strong>
             </div>
         {% endif %}
+        <form class="form-horizontal" action="{% url 'survey_processing' provider_name='group1' survey_name='Bible' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="control-label col-md-5" for="num">Enter desired number of questions:</label>
+                <div class="col-md-6">
+                    <input id="num" type="number" min="0">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Continue to the Survey</button>
+                </div>
+            </div>
+        </form>
         <div class="text-center">
-            <form action="{% url 'survey_processing' provider_name='group1' survey_name='Bible' %}">
-                <label>Number of questions to be challenged: </label>
-                <input type="number" min="0">
-                <button class="btn btn-primary" type="submit">Continue to the Survey</button>
-            </form>
             <a class="btn btn-primary" href="{% url 'import_bible_verses' %}">Import Bible Verses</a><br><br>
-
             <p>My favorite Bible verse at this time is: Isaiah 41:10 - Lance Dell</p>
             <p>My favorite Bible verses at this time are: Psalm 72:12-14 - Brantley English</p>
             <p>My favorite Bible verses at this time are: Psalm 61:1-3 - Joshua Stucky</p>
