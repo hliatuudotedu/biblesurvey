@@ -11,12 +11,13 @@
                 <strong>{{ result }}</strong>
             </div>
         {% endif %}
-        <form class="form-horizontal" action="{% url 'survey_processing' provider_name='group1' survey_name='Bible' %}">
+        <form class="form-horizontal" method="get"
+                action="{% url 'survey_processing' provider_name='group1' survey_name='Bible' %}">
             {% csrf_token %}
             <div class="form-group">
                 <label class="control-label col-md-5" for="num">Enter desired number of questions:</label>
                 <div class="col-md-6">
-                    <input id="num" type="number" min="0">
+                    <input id="num" type="number" name="num_questions" min="0">
                 </div>
             </div>
             <div class="form-group">

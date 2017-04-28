@@ -11,7 +11,3 @@ class ImportQuestionsChoicesForm(forms.Form):
 
 class ImportBibleVersesForm(forms.Form):
     all_verses = forms.CharField(required=True, widget=forms.Textarea(attrs={'rows': 10, 'cols': 80}))
-
-
-class NumberOfQuestionsForm(forms.Form):
-    num_questions = forms.IntegerField(required=True)

@@ -7,7 +7,8 @@
             <a href="#" id="decfont" class="btn btn-success">Decrease Font Size</a>
         </p>
 
-        <form action="{% url 'survey_processing' provider_name=provider_name survey_name=survey_name %}" method="post">
+        <form method="post"
+            action="{% url 'survey_processing' provider_name=provider_name survey_name=survey_name %}">
             <input type="hidden" value="{{ csrf_token }}" name="csrfmiddlewaretoken">
             <label for="patient_name">Patient Name</label>
             <input type="text"

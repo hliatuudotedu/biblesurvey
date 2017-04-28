@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import re, random
 from .models import Question, Choice, SurveyQuestion, SurveyResult, Survey, Provider
-from .forms import SurveyForm, ImportQuestionsChoicesForm, ImportBibleVersesForm, NumberOfQuestionsForm
+from .forms import SurveyForm, ImportQuestionsChoicesForm, ImportBibleVersesForm
 from django.utils import timezone
 from django.db.models import Max, Min, Avg
 
@@ -12,10 +12,7 @@ def index(request):
 
 
 def main_function(request):
-    form = NumberOfQuestionsForm(request.POST or None)
-    if form.is_valid():
-        num_questions = form.cleaned_data['num_questions']
-    return render(request, 'survey/main.html', {'form': form})
+    return render(request, 'survey/main.html')
 
 
 def import_questions_choices(request):
@@ -159,7 +156,13 @@ def survey_processing(request, provider_name, survey_name):
                 survey_name + " not found!")
 
         form = SurveyForm()
-        questions = get_questions(survey_name)
+
+        # gets user input, converts from string to int, then gets random set of questions based on the int
+        num_questions = request.GET['num_questions']
+        num = int(num_questions)
+        question_list = get_questions(survey_name)
+        questions = question_list[:num]
+
         return render(request, 'survey/survey_display.html',
                       {'questions': questions,
                        'form': form,
