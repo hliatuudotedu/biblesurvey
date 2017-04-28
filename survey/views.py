@@ -208,12 +208,15 @@ def survey_processing(request, provider_name, survey_name):
             question_id=q_id).aggregate(Min('point_value'))
             all_min += float(single_min.get('point_value__min'))
 
+        score = my_own_points / all_max * 100
+
         return render(request, 'survey/survey_2_provider.html',
                       {'object_list': object_list,
                        'patient_name': patient_name,
                        'my_own_points': my_own_points,
-                       'all_max':all_max,
-                       'all_min':all_min})
+                       'all_max': all_max,
+                       'all_min': all_min,
+                       'score': score})
 
 
 def import_bible_verses(request):
