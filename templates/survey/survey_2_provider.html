@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="">
+<div class="panel panel-info">
+    <div class="panel panel-heading">
         <h1 class="text-center">Results from the survey</h1>
     </div>
-
+    <div class="panel panel-body">
     <p>Name: {{ patient_name }}</p>
 
       <table class="table table-responsive table-striped table-bordered table-hover table-condensed">
         <thead>
           <tr >
-            <th class="text-center">For the question:</th>
+            <th class="text-center">Question:</th>
             <th class="text-center">Your Answer:</th>
             <th class="text-center">Correct Answer:</th>
             <th class="text-center">Points</th>
@@ -41,5 +42,7 @@
         <a class = "btn btn-primary text-center"
          href="{% url "main" %}">
         Back to the Main Page</a>
+    </div>
+</div>
 {% endblock %}
 
