@@ -10,9 +10,9 @@
         <form method="post"
             action="{% url 'survey_processing' provider_name=provider_name survey_name=survey_name %}">
             <input type="hidden" value="{{ csrf_token }}" name="csrfmiddlewaretoken">
-            <label for="patient_name">Patient Name</label>
+            <label for="patient_name">Name</label>
             <input type="text"
-                   placeholder="Patient Name is required"
+                   placeholder="Name is required"
                    name="patient_name"
                    maxlength="100"
                    id="patient_name"

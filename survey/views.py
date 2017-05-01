@@ -214,8 +214,6 @@ def survey_processing(request, provider_name, survey_name):
                       {'object_list': object_list,
                        'patient_name': patient_name,
                        'my_own_points': my_own_points,
-                       'all_max': all_max,
-                       'all_min': all_min,
                        'score': score})
 
 
