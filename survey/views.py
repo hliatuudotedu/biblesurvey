@@ -12,7 +12,7 @@ def index(request):
 
 
 def main_function(request):
-    questions = SurveyQuestion.objects.filter(survey='Bible')
+    questions = SurveyQuestion.objects.all()
     total_questions = questions.count()
     return render(request, 'survey/main.html', {'total_questions': total_questions})
 
@@ -214,7 +214,6 @@ def survey_processing(request, provider_name, survey_name):
         return render(request, 'survey/survey_2_provider.html',
                       {'object_list': object_list,
                        'patient_name': patient_name,
-                       'my_own_points': my_own_points,
                        'score': score})
 
 
