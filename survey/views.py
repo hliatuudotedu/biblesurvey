@@ -12,7 +12,8 @@ def index(request):
 
 
 def main_function(request):
-    total_questions = SurveyQuestion.objects.all()
+    questions = SurveyQuestion.objects.filter(survey='Bible')
+    total_questions = questions.count()
     return render(request, 'survey/main.html', {'total_questions': total_questions})
 
 
