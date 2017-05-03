@@ -12,7 +12,8 @@ def index(request):
 
 
 def main_function(request):
-    return render(request, 'survey/main.html')
+    total_questions = SurveyQuestion.objects.all()
+    return render(request, 'survey/main.html', {'total_questions': total_questions})
 
 
 def import_questions_choices(request):
@@ -157,7 +158,6 @@ def survey_processing(request, provider_name, survey_name):
 
         form = SurveyForm()
 
-        # gets user input, converts from string to int, then gets random set of questions based on the int
         num_questions = request.GET['num_questions']
         num = int(num_questions)
         question_list = get_questions(survey_name)
