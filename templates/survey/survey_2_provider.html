@@ -7,7 +7,7 @@
     </div>
     <div class="panel panel-body">
     <p>Name: {{ patient_name }}</p>
-
+    <p><strong>Score: {{ score }}%</strong></p>
       <table class="table table-responsive table-striped table-bordered table-hover table-condensed">
         <thead>
           <tr >
@@ -33,7 +33,6 @@
         </tbody>
       </table>
     <p>
-    <p>Score: {{ score }}%</p>
 
         <a class = "btn btn-primary text-center"
          href="{% url "main" %}">
